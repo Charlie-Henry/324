@@ -1,0 +1,11 @@
+Assignment #4 description:
+
+Music: Acoustic Breeze, https://www.bensound.com.
+
+Olympic Flag Animation - Charlie Henry
+-The intended animation was the entire object translating along the X direction while the flag moves vertically up and down along the flag pole. This was accomplished with a few additional features. 
+-The variable "speed" allows the flag's X and Y direction speed to be increased or changed in direction. Negative speeds correspond with leftward motion, and positive for rightward motion. 
+-flagHeight is the height in which the flag will "rebound" back to the bottom. It is not the initial position on the flag. 
+-The flag pShape and flagPole pShape is first created in setup() and a class AnimateFlag moves the flag in the X & Y directions. 
+-Two flag objects were created and animated.
+-One shortcoming was the flag does not change orientation (either left or right of the pole) when moving in their opposite directions. If the flagPole was moving to the right, we would expect the flag to be flying on the left of the flagPole. This shortcoming is due to the fact that the pShape was created before the class, and then sent to the AnimateFlag class. This makes changing the flag pShape difficult after object creation.
