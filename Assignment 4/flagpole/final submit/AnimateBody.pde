@@ -83,7 +83,6 @@ class AnimateBody{
       
     } 
     bodyXstart+=speed;
- println(bodyXstart);
   }
   
     void translateY(){
