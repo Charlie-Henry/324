@@ -11,6 +11,9 @@ SoundFile file;
 String audioName = "bensound-acousticbreeze.mp3";
 String path;
 
+PShape body,head,leftLeg,rightLeg,leftArm,rightArm,handle, fire;
+AnimateBody Person1, Person2, torch1;
+
 void setup(){
   path = sketchPath(audioName);
   file = new SoundFile(this, path);
@@ -147,6 +150,97 @@ void setup(){
   olympicFlag.addChild(redRing);
   
   flag2 = new AnimateFlag(pole,olympicFlag,flagX,flagY,flagHeight,-1);
+  
+  
+  int bodyXstart=30;
+  int bodyYstart=400;
+  int bodyXend=30;
+  int bodyYend=450;
+  //int speed = 1; 
+  int placeHolder=1;
+  
+  PShape Person= createShape(GROUP);
+  PShape body = createShape(LINE,bodyXstart,bodyYstart,bodyXend,bodyYend);
+  
+  PShape head=createShape(ELLIPSE,bodyXstart, bodyYstart-7, 15, 15);
+
+  PShape leftLeg = createShape(LINE,bodyXend,bodyYend,bodyXend-20,bodyYend+20);
+  PShape rightLeg = createShape(LINE,bodyXend,bodyYend,bodyXend+20,bodyYend+20);
+  PShape leftArm = createShape(LINE,bodyXstart,bodyYstart+10,bodyXstart-20,bodyYstart-20);
+  PShape rightArm = createShape(LINE,bodyXstart,bodyYstart+10,bodyXstart+20,bodyYstart-20);
+    
+  
+  Person.addChild(body);
+  Person.addChild(head);
+  Person.addChild(leftLeg);
+  Person.addChild(rightLeg);
+  Person.addChild(leftArm);
+  Person.addChild(rightArm);
+  
+  int handleX=45;
+  int handleY=360;
+  int fireX=45;
+  int fireY=360;
+  
+  
+  PShape olympicTorch=createShape(GROUP);
+  PShape handle= createShape(RECT,handleX,handleY,4,30);
+  handle.setStroke(color(165,165,165));
+  handle.setStrokeWeight(4);
+  
+  PShape fire=createShape(TRIANGLE, fireX, fireY, fireX+2, fireY-12, fireX+4, fireY);
+  fire.setStroke(color(242,125,12));
+  fire.setStrokeWeight(4);
+  
+  olympicTorch.addChild(handle);
+  olympicTorch.addChild(fire);
+
+  Person1= new AnimateBody(body,head, leftArm,  rightArm, leftLeg,  rightLeg,  bodyXstart,  bodyYstart,  bodyXend,  bodyYend,  speed,placeHolder, handle, fire, handleX, handleY, fireX, fireY);
+  
+  bodyXstart=450;
+  bodyYstart=400;
+  bodyXend=450;
+  bodyYend=450;
+  placeHolder=0;
+
+  Person= createShape(GROUP);
+  body = createShape(LINE,bodyXstart,bodyYstart,bodyXend,bodyYend);
+  
+  head=createShape(ELLIPSE,bodyXstart, bodyYstart-7, 15, 15);
+
+  leftLeg = createShape(LINE,bodyXend,bodyYend,bodyXend-20,bodyYend+20);
+  rightLeg = createShape(LINE,bodyXend,bodyYend,bodyXend+20,bodyYend+20);
+  leftArm = createShape(LINE,bodyXstart,bodyYstart+10,bodyXstart-20,bodyYstart-20);
+  rightArm = createShape(LINE,bodyXstart,bodyYstart+10,bodyXstart+20,bodyYstart-20);
+    
+  
+  Person.addChild(body);
+  Person.addChild(head);
+  Person.addChild(leftLeg);
+  Person.addChild(rightLeg);
+  Person.addChild(leftArm);
+  Person.addChild(rightArm);
+  
+  handleX=430;
+  handleY=360;
+  fireX=430;
+  fireY=360;
+  
+  olympicTorch=createShape(GROUP);
+  handle= createShape(RECT,handleX,handleY,4,30);
+  handle.setStroke(color(165,165,165));
+  handle.setStrokeWeight(4);
+  
+  fire=createShape(TRIANGLE, fireX, fireY, fireX+2, fireY-12, fireX+4, fireY);
+  fire.setStroke(color(242,125,12));
+  fire.setStrokeWeight(4);
+  
+  olympicTorch.addChild(handle);
+  olympicTorch.addChild(fire);
+
+  Person2= new AnimateBody(body,head, leftArm,  rightArm, leftLeg,  rightLeg,  bodyXstart,  bodyYstart,  bodyXend,  bodyYend,  speed,placeHolder, handle, fire, handleX, handleY, fireX, fireY);
+  
+
 }
 
 void draw(){
@@ -175,5 +269,13 @@ void draw(){
   wing2.moveWings();
   wing1.flap();
   wing2.flap();
+  
+  Person1.display();
+  Person1.translateX();
+  Person1.translateY();
+  
+  Person2.display();
+  Person2.translateX();
+  Person2.translateY();
   
 }
