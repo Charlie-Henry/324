@@ -15,3 +15,10 @@ Bird Animation - Andrew Cheung
 - I used PShapes and addChild() to combine multiple shapes and create the shape of the bird.
 - I used two different classes, one for the bird's body and one of the wings of the bird. The Bird class uses translate to move the bird horizontally and also resets the bird once it hits the edge of the canvas to allow the animation to continue. The wings class uses translate to allow each wing to stay in line with the bird's body as well as "flap" to add a second layer of animation.
 - One of the challenges was the object-oriented part and sending the PShapes to the classes. It allowed me to familarize myself more with OO programming and get more practice with OO concepts.
+
+Person Animation- Neil Sethi
+-This is an animation of two people carrying an Olympic torch across the canvas.  This was done by translating their bodies and the torches across the X direction, then changing the translation direction (speed) to the opposite direction once they reach a certain point on the canvas.
+-The torches move via translation along the Y axis.  It mimics the people raising and lowering the torch.  This is done by measuring the location of the top left point of the handle.  Once the torch reaches a point where the person can no longer "hold" it, the translation direction (speed) changes to the opposite.  
+-The persons bodies and the torches are two different PShapes.  
+-The same class is used to move the people in the X direction and the torches in the Y direction.
+I initially wanted the persons arms to move along with the torches using the rotate function.  I didn't feel that this is the correct way to move the arms and ultimately failed to move them.  
