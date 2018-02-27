@@ -270,10 +270,12 @@ void draw(){
   wing1.flap();
   wing2.flap();
   
+  //Person 1
   Person1.display();
   Person1.translateX();
   Person1.translateY();
   
+  //Person2
   Person2.display();
   Person2.translateX();
   Person2.translateY();
