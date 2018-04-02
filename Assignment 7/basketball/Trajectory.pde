@@ -26,8 +26,8 @@ class Trajectory{
  }
  
  public boolean checkTarget(){
-   if (x <= (targetX+5) && x >= (targetX-5)){
-     if (y <= (targetX+10) && y >= (targetX-10)){
+   if (x <= (targetX+12.5) && x >= (targetX-12.5)){
+     if (y <= (targetY+20) && y >= (targetY-20)){
        return true;
      }
    }
@@ -36,7 +36,7 @@ class Trajectory{
  }
  
  public boolean checkMiss(){
-   if (x>=500){
+   if (x>=510){
      
      return true;
      

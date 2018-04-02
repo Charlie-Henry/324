@@ -1,7 +1,10 @@
 Trajectory mass1;
 Target target1;
+Button continueButton;
+Button quitButton;
+
 float x,y,xo,yo,vxo,vyo,t,targetX,targetY;
-int gameState;
+int gameState,prevState;
 void setup(){
   gameState = 0;
   xo = 10;
@@ -9,13 +12,14 @@ void setup(){
   vxo = 10;
   vyo = 10;
   x=0;
-  targetX = 490;
+  targetX = 475;
   targetY = 300;
   size(500,500);
   background(95);
   mass1 = new Trajectory(0,250,xo,yo,10,10,targetX,targetY);
   target1 = new Target(targetX,targetY);
- 
+  continueButton = new Button(250,200,60,20,"Continue");
+  quitButton = new Button(250,300,60,20,"Quit");
 }
 
 void draw(){
@@ -32,7 +36,7 @@ void draw(){
   } 
   if (gameState == 2){
     background(40);
-    t+=1;
+    t+=.5;
     mass1.displayProjectile();
     y = mass1.moveProjectile(t);
     target1.displayTarget();
@@ -44,6 +48,12 @@ void draw(){
     if (mass1.checkMiss()){
       gameState = 0;
     }
+  }
+  
+  if(gameState == 3){
+    background(255);
+    continueButton.showButton();
+    quitButton.showButton();
   }
   target1.displayTarget();
 }
@@ -58,6 +68,21 @@ void mousePressed(){
     t=0;
     x=0;
     gameState = 2;
+  }
+  
+  
+  if (gameState == 3){
+    if (continueButton.checkPress()){
+      gameState = prevState;
+      if (prevState ==3){
+        gameState =0;
+      }
+    }
+    
+    if (quitButton.checkPress()){
+      exit();
+     
+    }
   }
 }
 
@@ -81,5 +106,11 @@ void keyPressed(){
         gameState =1;
       }
   }
+  
+  if (key == 'p'){
+    prevState = gameState;
+    gameState = 3;
+  }
+  
   
 }

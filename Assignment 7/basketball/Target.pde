@@ -7,7 +7,8 @@ class Target{
   
   void displayTarget(){
     rectMode(CENTER);
-    rect(x,y,10,20);
+    fill(255);
+    rect(x,y,25,40);
   }
   
 }
