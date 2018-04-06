@@ -15,8 +15,8 @@ void setup(){
   vxo = 10;
   vyo = 10;
   x=0;
-  score1 = 4;
-  score2 = 4;
+  score1 = 0;
+  score2 = 0;
   targetX = 475;
   targetY = 300;
   playerNum = 1;
