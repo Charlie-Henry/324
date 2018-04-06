@@ -2,9 +2,12 @@ Trajectory mass1;
 Target target1;
 Button continueButton;
 Button quitButton;
+Button resetButton;
+Button endButton;
+
 
 float x,y,xo,yo,vxo,vyo,t,targetX,targetY;
-int gameState,prevState;
+int gameState,prevState,playerNum,score1,score2;
 void setup(){
   gameState = 4;
   xo = 10;
@@ -12,18 +15,23 @@ void setup(){
   vxo = 10;
   vyo = 10;
   x=0;
+  score1 = 4;
+  score2 = 4;
   targetX = 475;
   targetY = 300;
+  playerNum = 1;
   size(500,500);
   background(95);
   mass1 = new Trajectory(0,250,xo,yo,10,10,targetX,targetY);
   target1 = new Target(targetX,targetY);
   continueButton = new Button(200,200,110,20,"Click to Continue");
   quitButton = new Button(200,300,100,20,"Click to Quit");
+  resetButton = new Button(200,350,120,20,"Click to Play Again");
+  endButton = new Button(200,300,100,20,"Click to Quit");
 }
 
 void draw(){
-
+  
   
   
   if (gameState == 0) {
@@ -33,11 +41,11 @@ void draw(){
   
   
   if (gameState == 1) {
-    background(95);
+    background(200);
     line(xo,yo,mouseX,mouseY); 
   } 
   if (gameState == 2){
-    background(40);
+    background(200);
     t+=.5;
     mass1.displayProjectile();
     y = mass1.moveProjectile(t);
@@ -45,6 +53,12 @@ void draw(){
     
     if (mass1.checkTarget()){
       gameState = 0;
+      if (playerNum == 1){
+        score1++;
+      }
+      if (playerNum == 2){
+        score2++;
+      }
     }
     
     if (mass1.checkMiss()){
@@ -66,13 +80,56 @@ void draw(){
     text("   Once you have selected a place hit the ENTER button.", 10, 90); 
     text("2: Now Player 2 will use the Mouse or trackpad to aim.", 10, 120); 
     text("   One you are done aiming click to shoot", 10, 150); 
-    text("3: Once you have shot the roles for each player switch. If your shot is good, your score will go up.", 10, 180); 
-    text("4: Press the 'P' button at any time to pause the game", 10, 210); 
-    text("5: Press the 'S' to start the game!", 10, 240); 
+    text("3: Once you have shot the roles for each player switch. If your shot is good, your score will go up.", 10, 180);
+    text("4: First to 5 points wins!", 10, 210); 
+    text("5: Press the 'P' button at any time to pause the game", 10, 240); 
+    text("6: Press the 'S' to start the game!", 10, 270); 
 
     
     
     //fill(0, 102, 153);
+  }
+ 
+   if (gameState != 4){
+    rectMode(CORNER);
+    fill(color(#D3D3D3));
+    rect(0,0,499,25);
+    fill(color(#FFFFFF));
+    rect(0,25,499,2);
+    fill(0);
+    textSize(20);
+   
+    if (playerNum == 1){
+      text("Player 1",15,20);
+      text(score1,460,20);
+    }
+    if (playerNum == 2){
+      text("Player 2",15,20);
+      text(score2,460,20);
+    }
+    text("Score: ",400,20);
+    
+    textSize(10);
+  }
+  
+  if (score1 > 4){
+    gameState  = 5;
+    textSize(50);
+    text("Player 1 Wins!",30,250);
+    textSize(10);
+    
+  }
+  
+  if (score2 > 4){
+    gameState  = 5;
+    textSize(50);
+    text("Player 2 Wins!",30,250);
+    textSize(10);
+  }
+  
+  if (gameState == 5){
+    resetButton.showButton();
+    endButton.showButton();
   }
  
   
@@ -85,7 +142,7 @@ void mousePressed(){
     float theta = atan((yo-mouseY)/(mouseX-xo));
     vxo = abs(mouseX-xo)*.1*cos(theta)*.9;
     vyo = abs(yo-mouseY)*.1*sin(theta)*.9;
-    mass1 = new Trajectory(xo,250,xo,yo,vxo,vyo,targetX,targetY);
+    mass1 = new Trajectory(xo,yo,xo,yo,vxo,vyo,targetX,targetY);
     t=0;
     x=0;
     gameState = 2;
@@ -101,6 +158,19 @@ void mousePressed(){
     }
     
     if (quitButton.checkPress()){
+      exit();
+     
+    }
+  }
+  
+  if (gameState == 5){
+    if (resetButton.checkPress()){
+      score1 = 0;
+      score2 = 0;
+      playerNum = 1;
+      gameState = 0;
+    }
+    if (endButton.checkPress()){
       exit();
      
     }
@@ -127,6 +197,12 @@ void keyPressed(){
     }
     if (key == ENTER || key == RETURN){
         gameState =1;
+        if (playerNum == 1){
+          playerNum = 2;
+        }
+        else{
+          playerNum = 1;
+        }
       }
   }
   
