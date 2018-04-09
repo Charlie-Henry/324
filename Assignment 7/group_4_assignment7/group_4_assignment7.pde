@@ -4,6 +4,7 @@ Button continueButton;
 Button quitButton;
 Button resetButton;
 Button endButton;
+PImage court;
 
 
 float x,y,xo,yo,vxo,vyo,t,targetX,targetY;
@@ -28,6 +29,7 @@ void setup(){
   quitButton = new Button(200,300,100,20,"Click to Quit");
   resetButton = new Button(200,350,120,20,"Click to Play Again");
   endButton = new Button(200,300,100,20,"Click to Quit");
+  court = loadImage("basketball_court.jpg");
 }
 
 void draw(){
@@ -35,17 +37,17 @@ void draw(){
   
   
   if (gameState == 0) {
-    background(200);
+    background(court);
     target1.displayTarget();
   }
   
   
   if (gameState == 1) {
-    background(200);
+    background(court);
     line(xo,yo,mouseX,mouseY); 
   } 
   if (gameState == 2){
-    background(200);
+    background(court);
     t+=.5;
     mass1.displayProjectile();
     y = mass1.moveProjectile(t);
@@ -67,7 +69,7 @@ void draw(){
   }
   
   if(gameState == 3){
-    background(255);
+    background(court);
     continueButton.showButton();
     quitButton.showButton();
   }
