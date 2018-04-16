@@ -2,23 +2,53 @@ String title;
 String buildDate;
 XML[] items;
 int start;
-int y = 200;
+int y = 150;
 int end = 10;
+String desc;
+Button [] titleButtons;
+Button nextButton;
+Button backButton;
 
 void setup() {
-  size(1000, 1000);
+  size(700, 700);
   String url = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk";
   XML xml = loadXML(url);
   title = xml.getChild("channel/title").getContent();
   buildDate = xml.getChild("channel/lastBuildDate").getContent();
   items = xml.getChild("channel").getChildren("item");
+  titleButtons = new Button [10];
+  
+  for (int i = 0; i<10;i++){
+    titleButtons[i] = new Button(10,y-24,700,24);
+    y+=40;
+  }
+  fill(0);
+  rect(0, 550, 700, 150);
+  
+  //initalize start button
+  nextButton = new Button(650,20,35,20);
+  
+  stroke(0);
+  
+  strokeWeight(3);
+  fill(255);
+  
+  rect(650,20,35,20);
+  fill(0);
+  text("NEXT",653,32);
+  backButton = new Button(600,20,35,20);
+  fill(255);
+  rect(600,20,35,20);
+  fill(0);
+  text("BACK",603,32);
+  strokeWeight(1);
 }
 
 void draw() {
-  fill(0);
-  rect(0, 800, 1000, 200);
+  
   start =0;
-  println(items[6].getChild("title").getContent());
+  y = 150;
+  //println(items[6].getChild("title").getContent());
   fill(255);
   
   for (int i = start; i<end;i++){
@@ -27,6 +57,17 @@ void draw() {
     //text(items[i].getChild("description").getContent(), 40, 850);
     y += 40;
   }
-  noLoop();
+  
+  for (int q = 0; q<10;q++){
+    if (titleButtons[q].checkHover()){
+      //println(q);
+      fill(0);
+      rect(0, 550, 700, 150);
+      fill(255);
+      desc = items[q+start].getChild("description").getContent();
+      if (textWidth(desc) > 600){
+        
+    }
+  }
   
 }
