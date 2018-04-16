@@ -66,8 +66,16 @@ void draw() {
       fill(255);
       desc = items[q+start].getChild("description").getContent();
       if (textWidth(desc) > 600){
-        
-    }
+        text(desc.substring(0,40), 20, 580);
+        if (textWidth(desc.substring(40,desc.length())) > 600) {
+          text(desc.substring(40,80), 20, 620);
+          text(desc.substring(80,desc.length()), 20, 660);
+        } else {
+          text(desc.substring(40,desc.length()), 20, 620);
+        }
+      } else {
+        text(desc, 20, 580);
+      }
   }
-  
+} 
 }
