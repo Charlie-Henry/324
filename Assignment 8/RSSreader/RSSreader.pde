@@ -14,7 +14,7 @@ Button backButton;
 
 void setup() {
   background(95);
-  size(700, 700);
+  size(1000, 700);
   String url = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk";
   XML xml = loadXML(url);
   title = xml.getChild("channel/title").getContent();
@@ -55,7 +55,7 @@ void setup() {
   ellipse(10+12.5, 15+12.5, 10, 10);
   
   fill(0);
-  rect(0, 550, 700, 150);
+  rect(0, 550, 1000, 150);
   
   //initalize next and back buttons
   nextButton = new Button(650,20,35,20);
@@ -94,12 +94,12 @@ void draw() {
       if (q+start < items.length){
         //println(q);
         fill(0);
-        rect(0, 550, 700, 150);
+        rect(0, 550, 1000, 150);
         fill(255);
         desc = items[q+start].getChild("description").getContent();
-        if (textWidth(desc) > 600){
+        if (textWidth(desc) > 900){
           text(desc.substring(0,40), 20, 580);
-          if (textWidth(desc.substring(40,desc.length())) > 600) {
+          if (textWidth(desc.substring(40,desc.length())) > 900) {
             text(desc.substring(40,80), 20, 620);
             text(desc.substring(80,desc.length()), 20, 660);
           } else {
@@ -129,7 +129,7 @@ void mousePressed(){
       end +=10;
       fill(95);
       stroke(95);
-      rect(0,120,700,550-140);
+      rect(0,120,1000,550-140);
     }
     else if(items.length <end+10 && items.length <start+10){
       //do nothing
@@ -139,7 +139,7 @@ void mousePressed(){
       end = items.length;
       fill(95);
       stroke(95);
-      rect(0,120,700,550-140);
+      rect(0,120,1000,550-140);
     } 
     
   }
@@ -150,14 +150,14 @@ void mousePressed(){
       start -=10;
       fill(95);
       stroke(95);
-      rect(0,120,700,550-140);
+      rect(0,120,1000,550-140);
     }
     else if(end-10 >=0 && start-10 >=0){
       start -=10;
       end -=10;
       fill(95);
       stroke(95);
-      rect(0,120,700,550-140);
+      rect(0,120,1000,550-140);
     }
   }
   
@@ -189,7 +189,7 @@ void mousePressed(){
       ellipse((30*q)+10+12.5, 15+12.5, 10, 10);
       fill(95);
       stroke(95);
-      rect(0,60,700,550-65);
+      rect(0,60,1000,550-65);
       if (q == 0){
         //BBC news home
         String url = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk";
