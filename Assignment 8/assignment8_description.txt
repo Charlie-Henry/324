@@ -4,7 +4,7 @@ Andrew Cheung -
 
 Charlie Henry - 
 Assigment 8 part 2: “BCycle_OD”
-This visualization was completed using data from the City of Austin's open data portal: data.austintexas.gov. The datasets used were: 
+This visualization was completed using data from the City of Austin's open data portal: data.austintexas.gov. BCycles are bikes that can be rented for short term use then returned to specific stations. This data is from January 2017 (before the recent UT rollout of BCycle stations). The datasets used were: 
 
 Austin BCycle Kiosk Locations: https://data.austintexas.gov/Transportation-and-Mobility/Austin-B-Cycle-Kiosk-Locations/qd73-bsdg
 

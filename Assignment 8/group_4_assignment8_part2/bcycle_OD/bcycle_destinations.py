@@ -1,6 +1,6 @@
 
 import csv
-import pdb
+
 # csvfile = open('trips_2017.csv', 'rb')
 # read = csv.reader(csvfile, delimiter=',', quotechar='|')
 tripdict ={}
