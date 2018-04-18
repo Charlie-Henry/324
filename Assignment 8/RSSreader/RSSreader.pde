@@ -6,6 +6,7 @@ int y = 150;
 int end = 10;
 String desc;
 String linkURL;
+color textColor = color(#F71B2A);
 
 Button [] titleButtons;
 Button [] radioButtons;
@@ -13,6 +14,7 @@ Button nextButton;
 Button backButton;
 
 void setup() {
+  textColor = color(#F71B2A);
   background(95);
   size(1000, 700);
   String url = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk";
@@ -80,7 +82,7 @@ void draw() {
   text(buildDate,20,100);
   y = 150;
   //println(items[6].getChild("title").getContent());
-  fill(255);
+  fill(textColor);
   
   for (int i = start; i<end;i++){
     textSize(24);
@@ -192,6 +194,7 @@ void mousePressed(){
       rect(0,60,1000,550-65);
       if (q == 0){
         //BBC news home
+        textColor = color(#F71B2A);
         String url = "http://feeds.bbci.co.uk/news/rss.xml?edition=uk";
         XML xml = loadXML(url);
         title = xml.getChild("channel/title").getContent();
@@ -201,6 +204,7 @@ void mousePressed(){
       
       if (q == 1){
         //BBC news technology
+        textColor = color(#EC1BF7);
         String url = "http://feeds.bbci.co.uk/news/technology/rss.xml";
         XML xml = loadXML(url);
         title = xml.getChild("channel/title").getContent();
@@ -210,6 +214,7 @@ void mousePressed(){
       
       if (q == 2){
         //BBC news buisness
+        textColor = color(#1BDFF7);
         String url = "http://feeds.bbci.co.uk/news/business/rss.xml";
         XML xml = loadXML(url);
         title = xml.getChild("channel/title").getContent();
@@ -219,6 +224,7 @@ void mousePressed(){
       
       if (q == 3){
         //BBC news Africa
+        textColor = color(#25F71B);
         String url = "http://feeds.bbci.co.uk/news/world/africa/rss.xml";
         XML xml = loadXML(url);
         title = xml.getChild("channel/title").getContent();
@@ -228,6 +234,7 @@ void mousePressed(){
       
       if (q == 4){
         //BBC news USA and Canada
+        textColor = color(#F7741B);
         String url = "http://feeds.bbci.co.uk/news/world/us_and_canada/rss.xml";
         XML xml = loadXML(url);
         title = xml.getChild("channel/title").getContent();
