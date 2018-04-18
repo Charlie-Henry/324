@@ -2,4 +2,20 @@ Neil Sethi -
 
 Andrew Cheung - 
 
-Charlie Henry -
+Charlie Henry - 
+Assigment 8 part 2: “BCycle_OD”
+This visualization was completed using data from the City of Austin's open data portal: data.austintexas.gov. The datasets used were: 
+
+Austin BCycle Kiosk Locations: https://data.austintexas.gov/Transportation-and-Mobility/Austin-B-Cycle-Kiosk-Locations/qd73-bsdg
+
+Austin BCycle Trips: https://data.austintexas.gov/Transportation-and-Mobility/Austin-B-Cycle-Trips/tyfh-5r8s
+
+Each row in the trip data has an origin and destination. The goal of this visualization was to allow users to see where bikes originating from a station end up. This data has multiple "axes" of data which was required from the assigment description:
+	- Kiosk location (latitude/longitude)
+	- Data of trips originiating from each station
+	- Each trip's destination dependent on the selected station
+
+The data analysis was done in Python using the bcycle_destinations.py script. It takes in the trip data exported from the open data portal in CSV format. It exports a table where each row is: origin station ID, destination station ID, and number of trips. 
+
+The processing code plots each station's location based on a fraction of the screen size from the latitude and longitude information provided. It uses a screenshot of google maps as a static basemap file. When a station is clicked, the circle turns yellow and the name is displayed. All the circles will re-size based on the number of trips that end at those stations. 
+It takes in mouse presses and animates the circles when they are clicked.
