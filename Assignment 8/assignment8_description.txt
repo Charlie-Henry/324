@@ -1,6 +1,15 @@
 Neil Sethi - 
 
 Andrew Cheung - 
+Assignment 8 part 3: "RSSReader"
+This RSS reader was created in processing by getting XML data from BBC's RSS feed and displaying that data through processing. 
+The BBC feeds are found here: http://news.bbc.co.uk/2/hi/help/rss/default.stm
+
+Using getChild(), getChildren(), and getContent, I retrieved the XML data and used text() to display it onto the canvas. The function
+link() was used to link each title to the webpage article and the url of the link was included in the XML data.
+Our previous button class helped a lot because we were able to use it for the next and back buttons as well as checking for hovers of each title. The radio buttons allow the user to move from different feeds and are color coded to represent a feed. One problem I ran into was 
+reading the description of the article and getting it to display to the next line. I accomplished thos by using substring() and if statements to check if the textwidth was larger than a certain size.
+
 
 Charlie Henry - 
 Assigment 8 part 2: “BCycle_OD”
