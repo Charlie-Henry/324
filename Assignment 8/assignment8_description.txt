@@ -1,4 +1,6 @@
-Neil Sethi - 
+Neil Sethi-
+Assigment 8 part 1: “10 Largest Cities Bar Graph”
+In this part of the assignement I created a processing file to compare the populations of the 10 largest cities in the country.  I made a .csv file that has each cities 2018 population, 2016 population, 2010 population from the census, percent change, and population density.  The bar graph is made by taking in data frome each section and then scales the data either up or down in order to visualize it on the screen.  The scaled data us used to make the height of the bars and the actual value is printed on top of the bar.  I used gamestates to hold each of the five graphs.  I then used keypressed function to switch between each of the gamestates by pressing the enter button.  Unfortunatley I could not get the gamestates to restart so the only way to get back to a previous graph is to exit the program and restart it.  
 
 Andrew Cheung - 
 Assignment 8 part 3: "RSSReader"
