@@ -6,6 +6,7 @@
 // 4 = Intructions
 // 5 = win screen
 // 6 = main menu
+// 7 = player name enter
 
 Trajectory mass1;
 
@@ -24,9 +25,14 @@ float [] menuTime;
 Trajectory [] menuMasses;
 
 Table leaderboards;
+String playerOneName;
+String playerTwoName;
 
 float x,y,xo,yo,vxo,vyo,t,targetX,targetY;
 int gameState,prevState,playerNum,score1,score2;
+int XPosition = 200;
+int YPosition = 200;
+int playerCount = 1;
 void setup(){
   gameState = 6;
   xo = 10;
@@ -41,6 +47,9 @@ void setup(){
   playerNum = 1;
   size(500,500);
   background(200);
+  
+  playerOneName = "";
+  playerTwoName = "";
   mass1 = new Trajectory(0,250,xo,yo,10,10,targetX,targetY);
   target1 = new Target(targetX,targetY);
   continueButton = new Button(200,200,110,20,"Click to Continue");
@@ -196,6 +205,22 @@ void draw(){
     highscores.showButton();
     
   }
+  
+  if (gameState == 7){
+    background(200);
+    
+    rectMode(CORNER);
+    fill(255);
+    rect(200,200,120,20);
+    rect(200,400,120,20);
+    
+    fill(0);
+    text(playerTwoName,210,412);
+    text("Player Two Name:",200,400);
+    text("Player One Name:",200,200);
+    text(playerOneName,210,212);
+    text("Press Enter To Continue",200,450);
+  }
  
   target1.displayTarget();
   
@@ -249,13 +274,18 @@ void mousePressed(){
       exit();
     }
     if (startGame.checkPress()){
-      gameState = 0;
+      
+      gameState = 7;
     }
     if (highscores.checkPress()){
       println("Leaderboards");
     }
     
   }
+  
+  
+  
+  
    
    
 }
@@ -299,4 +329,30 @@ void keyPressed(){
     }
   }
   
-}
+  if(gameState == 7){
+    
+    if (key!=CODED){
+      if (playerCount == 1){
+        if (playerOneName.length()<10){
+          playerOneName = playerOneName +key;
+        }
+      }
+      if (playerCount == 2){
+        if (playerTwoName.length()<10){
+          playerTwoName = playerTwoName +key;
+          }
+        }
+      if (key == ENTER || key == RETURN){
+        if (playerCount == 1 && playerOneName.length() >1){
+          playerCount = 2;
+        }
+        if(playerTwoName.length()>1){
+          gameState = 0;
+        }
+      }
+    
+      }
+    }
+    
+  
+  }
