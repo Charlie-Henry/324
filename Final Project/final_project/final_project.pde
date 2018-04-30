@@ -8,6 +8,9 @@
 // 6 = main menu
 // 7 = player name enter
 
+//The song is The Globetrotters Theme Song
+//by Sweet Georgia Brown
+
 Trajectory mass1;
 
 Target target1;
@@ -33,7 +36,18 @@ int gameState,prevState,playerNum,score1,score2;
 int XPosition = 200;
 int YPosition = 200;
 int playerCount = 1;
+int soundCount=0;
+
+import processing.sound.*;
+SoundFile file;
+String audioName = "HarlemGlobetrotters.mp3";
+String path;
+
 void setup(){
+  path = sketchPath(audioName);
+  file = new SoundFile(this, path);
+  file.play();
+  
   gameState = 6;
   xo = 10;
   yo = 490;
@@ -353,6 +367,14 @@ void keyPressed(){
     
       }
     }
-    
+  if (key=='m'){
+    if (soundCount%2==0){
+      file.stop();
+    }
+    else{
+      file.play();
+    }
+    soundCount+=1;
+  }
   
   }
