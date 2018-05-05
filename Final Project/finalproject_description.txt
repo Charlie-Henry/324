@@ -1,0 +1,6 @@
+This is our final project: Bevo Basketball.
+This game is a game where player A calls the other player B's shot, then Player B will attempt to make the shot by hitting the target.
+The shooting of the basketball uses physical simulation and you aim with the mouse. There is a line that helps guide the shot and
+the length of the line is dictates how far the shot goes.
+There is multiple GUI systems with the main menu and scores and instructions.
+There is also keyboard interactivity with the arrow keys to move to target, as well as keys to pause the game and mute the music.
