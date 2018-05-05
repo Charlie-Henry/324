@@ -1,3 +1,19 @@
+Andrew: Target movement and Shooting
+The target in the game is created using the target class where rect() is used to make the actual target in the game.
+The movement of the target is made using translations up and down and is controlled using the up and down arrow keys. The controls by the arrows keys were made with the keypress functions.
+The shoot is made using what I learned in the physics simulation. The traject class also includes checks if the target is hit during the game or if the target is missed. This allows of the players to actually earn points when the target is hit.
+
+
+Charlie: GUI
+The GUI is created using a combination of text() to display scores and button text, buttons from the button class, and incorporated into the different game states.
+The score variables created keep track of the score and when a certain score is reached, a win screen game state is entered which displays the winner.
+
+
+Neil: Pause Screen, Win Screen, Instructions Screen
+The pause screen, win screen, and instructions screens all have text on them and I used the text() function along with textSize() to visualize it on the screens. The game itself is created using many different game states which allows for the pause screen to pause and continue during that specific game state.
+The pause screen also has 2 buttons from the button class and when clicked, it continues or quits the game. In the pause game state, I created functions to show each button. The continue button works by movie to the previous game state since the pause state is the current state. The quit button simply exits the program.
+The win screen is triggered when players reach a certain score.
+
 We expanded assignment #7 to meet project requirements:
 
 
