@@ -4,9 +4,10 @@
 // 2 = Mid-throw check target and score
 // 3 = Pause Screen
 // 4 = Intructions
-// 5 = win screenmm
+// 5 = win screen
 // 6 = main menu
 // 7 = player name enter
+// 8 = past games
 
 //The song is The Globetrotters Theme Song
 //by Sweet Georgia Brown
@@ -26,12 +27,17 @@ Button instructions;
 Button startGame;
 Button mainMenuQuit;
 Button highscores;
+Button mainMenuButton;
 float [] menuTime;
 Trajectory [] menuMasses;
 
-Table leaderboards;
+Table pastGames,buffer;
 String playerOneName;
 String playerTwoName;
+
+PShape circle,arrowN,arrowS,arrowE,arrowW;
+float cursorTime=0;
+
 
 float x,y,xo,yo,vxo,vyo,t,targetX,targetY;
 int gameState,prevState,playerNum,score1,score2;
@@ -45,12 +51,15 @@ SoundFile file;
 String audioName = "HarlemGlobetrotters.mp3";
 String path;
 
+boolean updateScores = true;
+
 void setup(){
   path = sketchPath(audioName);
   file = new SoundFile(this, path);
   file.play();
   court=loadImage("court.png");
-  
+  pastGames = loadTable("games.csv");
+  buffer = loadTable("buffer.csv");
   
   
   gameState = 6;
@@ -73,13 +82,14 @@ void setup(){
   target1 = new Target(targetX,targetY);
   continueButton = new Button(200,200,110,20,"Click to Continue");
   quitButton = new Button(200,300,100,20,"Click to Quit");
-  resetButton = new Button(200,350,120,20,"Click to Play Again");
-  endButton = new Button(200,300,100,20,"Click to Quit");
+  resetButton = new Button(200,350,150,20,"Click to Play Again");
+  mainMenuButton = new Button(200,450,150,20,"Click to Return to Menu");
+  endButton = new Button(200,300,150,20,"Click to Quit");
   
   //main menu
   startGame = new Button(200,100,100,20,"Start Game");
   instructions = new Button(200,200,100,20,"Instructions");
-  highscores = new Button(200,300,100,20,"Highscores");
+  highscores = new Button(200,300,100,20,"Recent Scores");
   mainMenuQuit = new Button(200,400,100,20,"Quit");
   
   menuMasses = new Trajectory[10];
@@ -103,6 +113,8 @@ void draw(){
   if (gameState == 0) {
     background(court);
     target1.displayTarget();
+    text("Use arrow keys to move target into position",200,450);
+    text("Then press enter",200,470);
   }
   
   
@@ -111,6 +123,30 @@ void draw(){
     stroke(255,16,11);{
     line(xo,yo,mouseX,mouseY); 
     }
+    fill(color(#FF5D5D));
+    ellipseMode(CENTER);
+    circle = createShape(ELLIPSE, mouseX,mouseY,15,15);
+    rectMode(CORNERS);
+    arrowN = createShape(RECT, mouseX-2,mouseY-15-5-1,mouseX,mouseY-15+(cursorTime*5)-1);
+    arrowS = createShape(RECT, mouseX-2,mouseY+15+1+5,mouseX,mouseY+15-(cursorTime*5)+1);
+    arrowW = createShape(RECT, mouseX-15-5-1,mouseY-2,mouseX-15-1+(cursorTime*5),mouseY);
+    arrowE = createShape(RECT, mouseX+15+1+5,mouseY-2,mouseX+15+1-(cursorTime*5),mouseY);
+    
+    shape(circle);
+    shape(arrowN);
+    shape(arrowS);
+    shape(arrowW);
+    shape(arrowE);
+    if (cursorTime<1){
+      cursorTime+=.01;
+    }
+    else{
+      cursorTime = 0;
+    }
+    
+    
+    
+    stroke(0);
   } 
   if (gameState == 2){
     background(court);
@@ -138,6 +174,7 @@ void draw(){
     background(255);
     continueButton.showButton();
     quitButton.showButton();
+    
   }
   
   if (gameState==4){
@@ -169,14 +206,16 @@ void draw(){
     textSize(20);
    
     if (playerNum == 1){
-      text("Player 1",15,20);
+      text(playerOneName+"'s Turn",15,20);
       text(score1,460,20);
     }
     if (playerNum == 2){
-      text("Player 2",15,20);
+      text(playerTwoName+"'s Turn",15,20);
       text(score2,460,20);
     }
     text("Score: ",400,20);
+    target1.displayTarget();
+  
     
     textSize(10);
   }
@@ -184,25 +223,75 @@ void draw(){
   if (score1 > 4){
     gameState  = 5;
     textSize(50);
-    text("Player 1 Wins!",30,250);
+    fill(255);
+    text(playerOneName+" Wins!",30,250);
+    fill(0);
     textSize(10);
     
+    if (updateScores){
+      buffer.clearRows();
+      buffer.addRow();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.setInt(0,0,score1);
+      buffer.setInt(0,1,score2);
+      buffer.setString(0,2,playerOneName);
+      buffer.setString(0,3,playerTwoName);
+      
+      for(int i = 1; i<5;i++){
+        buffer.addRow();
+        buffer.setInt(i,0,pastGames.getInt(i-1,0));
+        buffer.setInt(i,1,pastGames.getInt(i-1,1));
+        buffer.setString(i,2,pastGames.getString(i-1,2));
+        buffer.setString(i,3,pastGames.getString(i-1,3));
+      }
+      saveTable(buffer, "games.csv");
+      updateScores = false;
+    }
   }
   
   if (score2 > 4){
     gameState  = 5;
     textSize(50);
-    text("Player 2 Wins!",30,250);
+    fill(255);
+    text(playerTwoName+" Wins!",30,250);
+    fill(0);
     textSize(10);
+    if (updateScores){
+      buffer.clearRows();
+      buffer.addRow();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.addColumn();
+      buffer.setInt(0,0,score1);
+      buffer.setInt(0,1,score2);
+      buffer.setString(0,2,playerOneName);
+      buffer.setString(0,3,playerTwoName);
+      
+      for(int i = 1; i<5;i++){
+        buffer.addRow();
+        buffer.setInt(i,0,pastGames.getInt(i-1,0));
+        buffer.setInt(i,1,pastGames.getInt(i-1,1));
+        buffer.setString(i,2,pastGames.getString(i-1,2));
+        buffer.setString(i,3,pastGames.getString(i-1,3));
+      }
+      saveTable(buffer, "games.csv");
+      updateScores = false;
+    }
+    
   }
   
   if (gameState == 5){
     resetButton.showButton();
     endButton.showButton();
+    mainMenuButton.showButton();
   }
   
   if (gameState == 6){
-    background(200);
+    background(0);
     
     
     for (int i = 0; i<10;i++){
@@ -221,6 +310,12 @@ void draw(){
       }
     }
     
+    
+    textSize(25);
+    fill(255);
+    text("BevoBall",200,30);
+    fill(0);
+    textSize(10);
     instructions.showButton();
     startGame.showButton();
     mainMenuQuit.showButton();
@@ -230,7 +325,6 @@ void draw(){
   
   if (gameState == 7){
     background(200);
-    
     rectMode(CORNER);
     fill(255);
     rect(200,200,120,20);
@@ -241,10 +335,26 @@ void draw(){
     text("Player Two Name:",200,400);
     text("Player One Name:",200,200);
     text(playerOneName,210,212);
-    text("Press Enter To Continue",200,450);
+    text("Enter 3 characters for each player name then press any key to continue.",20,450);
+  }
+  
+  if (gameState == 8){
+    //display last 5 games
+    pastGames = loadTable("games.csv");
+    textSize(25);
+    background(0);
+    fill(255);
+    text("Last 5 Games",200,30);
+    textSize(10);
+    for(int i = 1;i<6;i++){
+      text(pastGames.getString(i-1,2),200,(40*i)+80);
+      text(pastGames.getString(i-1,3),300,(40*i)+80);
+      text(pastGames.getInt(i-1,0),200,(40*i)+20+80);
+      text(pastGames.getInt(i-1,1),300,(40*i)+20+80);
+    }
+    text("Press S to return to Main Menu",200,400);
   }
  
-  target1.displayTarget();
   
 }
 
@@ -258,6 +368,7 @@ void mousePressed(){
     t=0;
     x=0;
     gameState = 2;
+    
   }
   
   
@@ -282,6 +393,14 @@ void mousePressed(){
       playerNum = 1;
       gameState = 0;
     }
+    if (mainMenuButton.checkPress()){
+      score1 = 0;
+      score2 = 0;
+      playerNum = 1;
+      gameState = 6;
+      playerOneName = "";
+      playerTwoName = "";
+    }
     if (endButton.checkPress()){
       exit();
      
@@ -300,7 +419,7 @@ void mousePressed(){
       gameState = 7;
     }
     if (highscores.checkPress()){
-      println("Leaderboards");
+      gameState = 8;
     }
     
   }
@@ -339,10 +458,11 @@ void keyPressed(){
         }
       }
   }
-  
-  if (key == 'p'){
-    prevState = gameState;
-    gameState = 3;
+  if (gameState == 0 ||gameState == 1||gameState == 2||gameState == 3){
+    if (key == 'p'){
+      prevState = gameState;
+      gameState = 3;
+    }
   }
   if (gameState == 4){
     if (key == 's'){
@@ -350,32 +470,41 @@ void keyPressed(){
       background(200);
     }
   }
-  
+  if (gameState == 8){
+    if (key == 's'){
+      gameState = 6;
+    }
+  }
   if(gameState == 7){
-    
-    if (key!=CODED){
-      if (playerCount == 1){
-        if (playerOneName.length()<10){
-          playerOneName = playerOneName +key;
-        }
+    if (playerOneName.length()<3){
+      if (key >= 'A' && key <= 'Z'){
+         playerOneName = playerOneName +key;
       }
-      if (playerCount == 2){
-        if (playerTwoName.length()<10){
-          playerTwoName = playerTwoName +key;
-          }
-        }
-      if (key == ENTER || key == RETURN){
-        if (playerCount == 1 && playerOneName.length() >1){
-          playerCount = 2;
-        }
-        if(playerTwoName.length()>1){
-          gameState = 0;
-        }
+      
+      if (key >= 'a' && key <= 'z'){
+         playerOneName = playerOneName +key;
       }
-    
+     
+    }
+    else if (playerTwoName.length()<3){
+      if (key >= 'A' && key <= 'Z'){
+         playerTwoName = playerTwoName +key;
+      }
+      
+      if (key >= 'a' && key <= 'z'){
+         playerTwoName = playerTwoName +key;
       }
     }
-  if (key=='m'){
+    else{
+      playerOneName = playerOneName.toUpperCase();
+      playerTwoName = playerTwoName.toUpperCase();
+      gameState = 0;
+    }
+    
+  }
+  
+  if (key=='m' && gameState !=7){
+    
     if (soundCount%2==0){
       file.stop();
     }
@@ -384,5 +513,6 @@ void keyPressed(){
     }
     soundCount+=1;
   }
+  
   
   }
