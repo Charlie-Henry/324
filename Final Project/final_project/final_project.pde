@@ -4,12 +4,14 @@
 // 2 = Mid-throw check target and score
 // 3 = Pause Screen
 // 4 = Intructions
-// 5 = win screen
+// 5 = win screenmm
 // 6 = main menu
 // 7 = player name enter
 
 //The song is The Globetrotters Theme Song
 //by Sweet Georgia Brown
+
+PImage court;
 
 Trajectory mass1;
 
@@ -47,6 +49,9 @@ void setup(){
   path = sketchPath(audioName);
   file = new SoundFile(this, path);
   file.play();
+  court=loadImage("court.png");
+  
+  
   
   gameState = 6;
   xo = 10;
@@ -96,17 +101,19 @@ void draw(){
   
   
   if (gameState == 0) {
-    background(200);
+    background(court);
     target1.displayTarget();
   }
   
   
   if (gameState == 1) {
-    background(200);
+    background(court);
+    stroke(255,16,11);{
     line(xo,yo,mouseX,mouseY); 
+    }
   } 
   if (gameState == 2){
-    background(200);
+    background(court);
     t+=.5;
     mass1.displayProjectile();
     y = mass1.moveProjectile(t);
@@ -144,7 +151,8 @@ void draw(){
     text("3: Once you have shot the roles for each player switch. If your shot is good, your score will go up.", 10, 180);
     text("4: First to 5 points wins!", 10, 210); 
     text("5: Press the 'P' button at any time to pause the game", 10, 240); 
-    text("6: Press the 'S' to return to the main menu!", 10, 270); 
+    text("6: Press the 'S' button to return to the main menu!", 10, 270); 
+    text("7: Press the 'M' button to stop the music.", 10, 300); 
 
     
     
