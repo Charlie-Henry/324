@@ -4,4 +4,6 @@
 
 3. Ensure the correct files are within the current processing directory.
 
-4. Press run and enjoy the game!
+4. Press run to start the game.
+
+5. Read the instructions to the game and start playing.
